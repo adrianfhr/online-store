@@ -62,23 +62,13 @@ func (h *ProductHandler) GetProducts(c *gin.Context) {
 
 // AddProduct handles adding a new product
 func (h *ProductHandler) AddProduct(c *gin.Context) {
-	var addProductDTO dto.AddProductDTO // Use the DTO instead of entities.Product
+	var addProductDTOs []dto.AddProductDTO // Use a slice to accept multiple products
 
-	// Bind the incoming JSON to the DTO
-	if err := c.ShouldBindJSON(&addProductDTO); err != nil {
+	// Bind the incoming JSON to the slice of DTOs
+	if err := c.ShouldBindJSON(&addProductDTOs); err != nil {
 		response.RespondError(c, http.StatusBadRequest, "Invalid input", nil)
 		return
 	}
-
-	// Map DTO to the actual Product entity
-	product := entities.Product{
-		Name:     addProductDTO.Name,
-		Category: addProductDTO.Category,
-		Price:    addProductDTO.Price,
-		// Stock can be set manually or defaulted later
-	}
-
-	fmt.Println("Product: ", product)
 
 	// Start a transaction
 	tx, err := h.DB.Beginx()
@@ -87,12 +77,27 @@ func (h *ProductHandler) AddProduct(c *gin.Context) {
 		return
 	}
 
-	// Save product using transaction
-	savedProduct, err := h.Repo.SaveTx(context.Background(), tx, product)
-	if err != nil {
-		_ = tx.Rollback()
-		response.RespondError(c, http.StatusInternalServerError, "Failed to save product", nil)
-		return
+	// Iterate over the DTOs and map them to the actual Product entity
+	for _, addProductDTO := range addProductDTOs {
+		product := entities.Product{
+			Name:     addProductDTO.Name,
+			Category: addProductDTO.Category,
+			Price:    addProductDTO.Price,
+			Quantity: addProductDTO.Quantity,
+		}
+
+		fmt.Println("Product: ", product)
+
+		// Save product using transaction
+		_, err := h.Repo.SaveTx(context.Background(), tx, product)
+		if err != nil {
+			_ = tx.Rollback()
+			response.RespondError(c, http.StatusInternalServerError, "Failed to save product", nil)
+			return
+		}
+
+		// Optionally, you can collect saved products for response
+		// savedProducts = append(savedProducts, savedProduct)
 	}
 
 	// Commit the transaction
@@ -101,8 +106,10 @@ func (h *ProductHandler) AddProduct(c *gin.Context) {
 		return
 	}
 
-	response.RespondSuccess(c, http.StatusCreated, "Product created successfully", savedProduct)
+	// Respond with a success message
+	response.RespondSuccess(c, http.StatusCreated, "Products created successfully", nil)
 }
+
 
 // Get All Categories
 func (h *ProductHandler) GetCategories(c *gin.Context) {
