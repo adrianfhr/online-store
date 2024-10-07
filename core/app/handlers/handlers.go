@@ -8,6 +8,8 @@ import (
 type Handler struct {
 	ProductHandler *ProductHandler
 	CustomerHandler *CustomerHandler
+	CartHandler *CartHandler
+	InvoiceHandler *InvoiceHandler
 }
 
 // NewHandler initializes the main handler and injects dependencies.
@@ -15,5 +17,7 @@ func NewHandler(db *sqlx.DB) *Handler {
 	return &Handler{
 		ProductHandler: NewProductHandler(db),
 		CustomerHandler: NewCustomerHandler(db),
+		CartHandler: NewCartHandler(db),
+		InvoiceHandler: NewInvoiceHandler(db),
 	}
 }

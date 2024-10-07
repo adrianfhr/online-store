@@ -59,6 +59,5 @@ func (r *CustomerRepositoryImpl) GetByID(ctx context.Context, db *sqlx.DB, id st
 		fmt.Println("Error fetching customer by id: ", err)
 		return entities.Customer{}, err
 	}
-	fmt.Println("Customer in repositories: ", customer)
 	return customer, nil
 }
