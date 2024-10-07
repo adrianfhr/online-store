@@ -103,3 +103,14 @@ func (h *ProductHandler) AddProduct(c *gin.Context) {
 
 	response.RespondSuccess(c, http.StatusCreated, "Product created successfully", savedProduct)
 }
+
+// Get All Categories
+func (h *ProductHandler) GetCategories(c *gin.Context) {
+	categories, err := h.Repo.GetAllCategories(context.Background(), h.DB)
+	if err != nil {
+		response.RespondError(c, http.StatusInternalServerError, "Failed to get categories", nil)
+		return
+	}
+
+	response.RespondSuccess(c, http.StatusOK, response.GetSuccess(), categories)
+}

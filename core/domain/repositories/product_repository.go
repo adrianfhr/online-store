@@ -15,6 +15,7 @@ type ProductRepository interface {
 	GetByID(ctx context.Context, db *sqlx.DB, id string) (entities.Product, error)
 	GetStockByID(ctx context.Context, db *sqlx.DB, id string) (int, error)
 	UpdateStockTx(ctx context.Context, tx *sqlx.Tx, id string, quantity int) error
+	GetAllCategories(ctx context.Context, db *sqlx.DB) ([]string, error)
 }
 
 type ProductRepositoryImpl struct{}
@@ -105,4 +106,18 @@ func (r *ProductRepositoryImpl) UpdateStockTx(ctx context.Context, tx *sqlx.Tx, 
 	}
 
 	return nil
+}
+
+func (r *ProductRepositoryImpl) GetAllCategories(ctx context.Context, db *sqlx.DB) ([]string, error) {
+	var categories []string
+
+	query := `SELECT DISTINCT category FROM products`
+
+	err := db.SelectContext(ctx, &categories, query)
+	if err != nil {
+		fmt.Println("Error fetching all categories: ", err)
+		return nil, err
+	}
+
+	return categories, nil
 }
