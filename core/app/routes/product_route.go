@@ -13,6 +13,6 @@ func ProductRoutes(router *gin.Engine, handler *handlers.ProductHandler, db *sql
 	productGroup := router.Group("/products")
 	{
 		productGroup.GET("", middleware.RequireAuthMiddleware(db), handler.GetProducts)          // Get products by category
-		productGroup.POST("", handler.AddProduct)          // Add a new product
+		productGroup.POST("", middleware.RequireAuthMiddleware(db),handler.AddProduct)          // Add a new product
 	}
 }

@@ -20,19 +20,21 @@ func RequireAuthMiddleware(db *sqlx.DB) gin.HandlerFunc {
 		// Check if the request has an Authorization header
 		if c.GetHeader("Authorization") == "" {
 			response.RespondError(c, http.StatusUnauthorized, "Unauthorized", nil)
+			fmt.Println("No Authorization header")
 			c.Abort()
 			return
 		}
-		// config
+
+		// Config
 		cfg := config.GetConfig()
 
-		// get the token from the Authorization header bearer
+		// Get the token from the Authorization header (remove "Bearer " prefix)
 		tokenString := c.GetHeader("Authorization")[7:]
-		
+
 		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 			// Check if the signing method is correct
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 			}
 
 			// Return the secret key used to sign the token
@@ -40,16 +42,16 @@ func RequireAuthMiddleware(db *sqlx.DB) gin.HandlerFunc {
 		})
 
 		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-			fmt.Println(claims["sub"], claims["exp"])
+			fmt.Println("Claims: ", claims)
 
-			// check exp time
+			// Check expiration time
 			if float64(time.Now().Unix()) > claims["exp"].(float64) {
 				response.RespondError(c, http.StatusUnauthorized, "Token expired", nil)
 				c.Abort()
 				return
 			}
 
-			// check user id sub
+			// Check user id in "sub" claim
 			userID := claims["sub"].(string)
 			userRepo := repositories.NewCustomerRepository()
 			user, err := userRepo.GetByID(c, db, userID)
@@ -59,13 +61,11 @@ func RequireAuthMiddleware(db *sqlx.DB) gin.HandlerFunc {
 				return
 			}
 
-			c.Set("user", user)
-
-
-
-
+			// Save claims and user to context
+			c.Set("user", user)     // Simpan user ke konteks
+			// fmt.Println("Successfully authenticated")
 		} else {
-			fmt.Println(err)
+			fmt.Println("Error parsing token: ", err)
 			response.RespondError(c, http.StatusUnauthorized, "Unauthorized", nil)
 			c.Abort()
 			return

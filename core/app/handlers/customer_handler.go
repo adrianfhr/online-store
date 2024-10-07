@@ -20,14 +20,16 @@ import (
 
 type CustomerHandler struct {
 	DB   *sqlx.DB
-	Repo repositories.CustomerRepository
+	CustomerRepository repositories.CustomerRepository
+	CartRepository repositories.CartRepository
 }
 
 // NewCustomerHandler creates a new CustomerHandler
 func NewCustomerHandler(db *sqlx.DB) *CustomerHandler {
 	return &CustomerHandler{
 		DB:   db,
-		Repo: repositories.NewCustomerRepository(),
+		CustomerRepository: repositories.NewCustomerRepository(),
+		CartRepository: repositories.NewCartRepository(),
 	}
 }
 
@@ -39,8 +41,6 @@ func (h *CustomerHandler) CreateCustomer(c *gin.Context) {
 		response.RespondError(c, http.StatusBadRequest, "Invalid request",  nil)
 		return 
 	}
-
-
 
 	// Hash password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(createCustomerDTO.Password), bcrypt.DefaultCost)
@@ -67,11 +67,20 @@ func (h *CustomerHandler) CreateCustomer(c *gin.Context) {
 	fmt.Println("customer: ", customer)
 	
 	// Save the customer
-	customer, err = h.Repo.SaveTx(context.Background(), tx, customer)
+	customer, err = h.CustomerRepository.SaveTx(context.Background(), tx, customer)
 	if err != nil {
 		fmt.Println("Error saving customer: ", err)
 		tx.Rollback()
 		response.RespondError(c, http.StatusInternalServerError, "Failed to save customer", nil)
+		return
+	}
+
+	fmt.Println("Customer ID: ", customer.ID)
+	_, err = h.CartRepository.CreateCart(context.Background(), tx, customer.ID.String())
+	if err != nil {
+		fmt.Println("Error creating cart: ", err)
+		tx.Rollback()
+		response.RespondError(c, http.StatusInternalServerError, "Failed to create cart", nil)
 		return
 	}
 
@@ -98,7 +107,7 @@ func (h *CustomerHandler) SignInCustomer(c *gin.Context) {
 	}
 
 	// Get the customer by email
-	customer, err := h.Repo.GetByEmail(context.Background(), h.DB, signInDTO.Email)
+	customer, err := h.CustomerRepository.GetByEmail(context.Background(), h.DB, signInDTO.Email)
 	if err != nil {
 		fmt.Println("Error getting customer by email: ", err)
 		response.RespondError(c, http.StatusInternalServerError, "Failed to get customer", nil)

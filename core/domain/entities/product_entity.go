@@ -5,8 +5,9 @@ import (
 )
 
 type Product struct {
-	ID       uuid.UUID `db:"id" json:"id"`         // Unique identifier
-	Name     string    `db:"name" json:"name"`     // Product's name
+	ID       uuid.UUID `db:"id" json:"id"`             // Unique identifier
+	Name     string    `db:"name" json:"name"`         // Product's name
 	Category string    `db:"category" json:"category"` // Product's category
-	Price    float64   `db:"price" json:"price"`   // Product's price
+	Price    float64   `db:"price" json:"price"`       // Product's price
+	Quantity int       `db:"quantity" json:"quantity"` // Product's quantity
 }
