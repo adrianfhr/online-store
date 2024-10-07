@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "50dfe817-6c67-4965-bb79-4f52db0059b7",
+		"name": "synapsisid",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28326356"
+	},
+	"item": [
+		{
+			"name": "PRODUCT BY CATEGORY",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Products?Category=electro",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Products"
+					],
+					"query": [
+						{
+							"key": "Category",
+							"value": "electro"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL CATEGORIES",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Products/Categories",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Products",
+						"Categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ALL PRODUCT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Products",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD PRODUCT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"name\": \"Laptop\",\r\n        \"category\": \"Electronics\",\r\n        \"price\": 1500.00,\r\n        \"quantity\": 10\r\n    },\r\n    {\r\n        \"name\": \"Kursi Gaming\",\r\n        \"category\": \"Furniture\",\r\n        \"price\": 300.00,\r\n        \"quantity\": 15\r\n    },\r\n    {\r\n        \"name\": \"Smartphone\",\r\n        \"category\": \"Electronics\",\r\n        \"price\": 800.00,\r\n        \"quantity\": 25\r\n    },\r\n    {\r\n        \"name\": \"Sepatu Olahraga\",\r\n        \"category\": \"Fashion\",\r\n        \"price\": 120.00,\r\n        \"quantity\": 30\r\n    },\r\n    {\r\n        \"name\": \"Jam Tangan\",\r\n        \"category\": \"Accessories\",\r\n        \"price\": 250.00,\r\n        \"quantity\": 20\r\n    }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Products",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CART ITEMS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Cart/Items",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Cart",
+						"Items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADD CART ITEMS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product_id\":\"eb847168-8a6e-4dd7-9924-7b0f58c2b38d\",\r\n    \"quantity\": 2\r\n\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Cart/Items",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Cart",
+						"Items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE CART ITEMS",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product_id\":\"4a8a73d0-53c2-4774-983a-f8faa8444337\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Cart/Items",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Cart",
+						"Items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CHECKOUT CART",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Cart/Checkout",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Cart",
+						"Checkout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "INVOICE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Invoices",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Invoices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PAYMENTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Payments",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Payments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PAYMENTS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"invoice_id\" : \"ecc96468-8c9d-4e5c-a780-8c1dfefc076d\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Payments",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Payments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SIGN UP",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Adrian Fahri\",\r\n    \"email\": \"adrian@gmail.com\",\r\n    \"password\": \"adrian123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Customers/SignUp",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Customers",
+						"SignUp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SIGN IN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body to extract the token\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"// Check if the response contains a token\r",
+							"if (jsonData.data && jsonData.data.token) {\r",
+							"    // Save the token to an environment variable called 'authToken'\r",
+							"    pm.collectionVariables.set(\"AUTH_TOKEN\", jsonData.data.token);\r",
+							"    console.log(\"Authorization token has been set: \" + jsonData.data.token);\r",
+							"} else {\r",
+							"    console.log(\"Token not found in the response\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"adrian@gmail.com\",\r\n    \"password\": \"adrian123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Customers/SignIn",
+					"host": [
+						"{{HOST_URL}}"
+					],
+					"port": "{{HOST_PORT}}",
+					"path": [
+						"Customers",
+						"SignIn"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AUTH_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST_URL",
+			"value": "http://localhost",
+			"type": "string"
+		},
+		{
+			"key": "HOST_PORT",
+			"value": "8081",
+			"type": "string"
+		},
+		{
+			"key": "AUTH_TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
