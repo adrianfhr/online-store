@@ -1,9 +1,7 @@
 # Makefile
+include .env
 
-# Database connection string
-DB_URL := postgres://postgres:ad681789@192.168.0.106:5433/onlinestore?sslmode=disable
-
-# Migration path
+DB_URL := postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):$(DB_PORT)/$(DB_NAME)?sslmode=$(DB_SSL_MODE)
 MIGRATION_PATH := ./database/migrations
 
 # Command to run migrations
