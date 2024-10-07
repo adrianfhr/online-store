@@ -1,5 +1,5 @@
 CREATE TABLE invoices (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     customer_id UUID NOT NULL,
     payment_id UUID,
     amount DECIMAL(10, 2) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE invoices (
 );
 
 CREATE TABLE invoice_items (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     invoice_id UUID REFERENCES invoices(id) ON DELETE CASCADE,
     product_id UUID NOT NULL,
     product_name VARCHAR(255) NOT NULL,

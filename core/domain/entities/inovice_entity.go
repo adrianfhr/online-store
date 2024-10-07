@@ -24,3 +24,10 @@ type InvoiceItem struct {
 	Quantity    int       `db:"quantity" json:"quantity"`
 	Price       float64   `db:"price" json:"price"`
 }
+
+// invoice status pending, paid, expired
+const (
+	InvoiceStatusPending = "pending"
+	InvoiceStatusPaid    = "paid"
+	InvoiceStatusExpired = "expired"
+)

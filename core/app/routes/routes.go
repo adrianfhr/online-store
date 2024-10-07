@@ -21,6 +21,7 @@ func SetupRoutes(router *gin.Engine, handler *handlers.Handler, db *sqlx.DB) {
 	CustomerRoutes(router, handler.CustomerHandler, db)
 	CartRoutes(router, handler.CartHandler, db)
 	InvoiceRoutes(router, handler.InvoiceHandler, db)
+	PaymentRoutes(router, handler.PaymentHandler, db)
 
 	// You can add more routes here for other entities, e.g., auth routes, order routes, etc.
 }

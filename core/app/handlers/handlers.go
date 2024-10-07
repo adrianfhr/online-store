@@ -10,6 +10,7 @@ type Handler struct {
 	CustomerHandler *CustomerHandler
 	CartHandler *CartHandler
 	InvoiceHandler *InvoiceHandler
+	PaymentHandler *PaymentHandler
 }
 
 // NewHandler initializes the main handler and injects dependencies.
@@ -19,5 +20,6 @@ func NewHandler(db *sqlx.DB) *Handler {
 		CustomerHandler: NewCustomerHandler(db),
 		CartHandler: NewCartHandler(db),
 		InvoiceHandler: NewInvoiceHandler(db),
+		PaymentHandler: NewPaymentHandler(db),
 	}
 }

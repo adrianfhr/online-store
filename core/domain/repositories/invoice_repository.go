@@ -16,6 +16,7 @@ type InvoiceRepository interface {
 	SaveTx(ctx context.Context, tx *sqlx.Tx, invoice entities.Invoice) (entities.Invoice, error)
 	GetInvoiceByID(ctx context.Context,db *sqlx.DB, id string) (entities.Invoice, error)
 	GetInvoicesByCustomerID(ctx context.Context,db *sqlx.DB, id string) ([]entities.Invoice, error)
+	FinishInvoice(ctx context.Context, tx *sqlx.Tx, id string, payment_id string) error
 }
 
 // InvoiceRepositoryImpl struct
@@ -191,4 +192,21 @@ func (r *InvoiceRepositoryImpl) GetInvoicesByCustomerID(ctx context.Context, db 
 
     // Return the invoices with their items
     return invoices, nil
+}
+
+// FinishInvoice updates the status of an invoice to "completed"
+func (r *InvoiceRepositoryImpl) FinishInvoice(ctx context.Context, tx *sqlx.Tx, id string, payment_id string) error {
+	// Update the status of the invoice to "completed"
+	updateQuery := `
+		UPDATE invoices
+		SET status = $1, payment_id = $2
+		WHERE id = $3`
+	
+	_, err := tx.ExecContext(ctx, updateQuery, entities.InvoiceStatusPaid, payment_id, id)
+	if err != nil {
+		fmt.Println("Error updating invoice status: ", err)
+		return err
+	}
+
+	return nil
 }
