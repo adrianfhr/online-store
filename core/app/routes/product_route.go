@@ -1,0 +1,18 @@
+package routes
+
+import (
+	"online-store/core/app/handlers"
+	"online-store/core/middleware"
+
+	"github.com/gin-gonic/gin"
+	"github.com/jmoiron/sqlx"
+)
+
+// ProductRoutes sets up the product-related routes.
+func ProductRoutes(router *gin.Engine, handler *handlers.ProductHandler, db *sqlx.DB) {
+	productGroup := router.Group("/products")
+	{
+		productGroup.GET("", middleware.RequireAuthMiddleware(db), handler.GetProducts)          // Get products by category
+		productGroup.POST("", handler.AddProduct)          // Add a new product
+	}
+}
