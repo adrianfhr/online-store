@@ -68,18 +68,25 @@ The application will be available at `http://localhost:8081`.
     ```json
     [
         {
-            "name": "Product 1",
-            "category": "Category A",
-            "price": 100.00,
+            "name": "Laptop",
+            "category": "Electronics",
+            "price": 1500.00,
             "quantity": 10
         },
         {
-            "name": "Product 2",
-            "category": "Category B",
-            "price": 150.00,
-            "quantity": 5
-        }
+            "name": "Table",
+            "category": "Furniture",
+            "price": 800.00,
+            "quantity": 25
+        },
+        {
+            "name": "T-shirt",
+            "category": "Fashion",
+            "price": 120.00,
+            "quantity": 30
+        },
     ]
+
     ```
   
 - **Get Products**: `GET /Products`
@@ -109,9 +116,10 @@ The application will be available at `http://localhost:8081`.
   - **Body** (AddToCartDTO):
     ```json
     {
-        "product_id": "12345",
+        "product_id":"eb847168-8a6e-4dd7-9924-7b0f58c2b38d", //use the product_id from the products table
         "quantity": 2
     }
+
     ```
 
 - **View Cart**: `GET /Cart/Items`
@@ -120,7 +128,7 @@ The application will be available at `http://localhost:8081`.
   - **Body** (RemoveProductFromCartDTO):
     ```json
     {
-        "product_id": "12345"
+        "product_id":"eb847168-8a6e-4dd7-9924-7b0f58c2b38d"
     }
     ```
 
@@ -134,9 +142,9 @@ The application will be available at `http://localhost:8081`.
   - **Body** (CreatePaymentDTO):
     ```json
     {
-        "invoice_id": "67890"
+        "invoice_id": "ecc96468-8c9d-4e5c-a780-8c1dfefc076d"
     }
     ```
 ### API Collection
 
-I also provide an API collection in Postman format located in the docs directory. You can use this collection to easily test the provided endpoints. Simply import the collection file into Postman to start exploring the API.
+I also provide an API collection in Postman format located in the docs directory. You can use this collection to easily test the provided endpoints. Simply import the collection file into Postman to start exploring the API
