@@ -64,6 +64,15 @@ func (h *CustomerHandler) CreateCustomer(c *gin.Context) {
 		return
 	}
 
+	// Check if the customer already exists
+	_, err = h.CustomerRepository.GetByEmail(context.Background(), h.DB, customer.Email)
+	if err == nil {
+		fmt.Println("Customer already exists")
+		tx.Rollback()
+		response.RespondError(c, http.StatusConflict, "Customer already exists", nil)
+		return
+	}
+
 	fmt.Println("customer: ", customer)
 	
 	// Save the customer
