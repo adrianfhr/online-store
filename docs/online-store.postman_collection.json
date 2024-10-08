@@ -3,7 +3,8 @@
 		"_postman_id": "50dfe817-6c67-4965-bb79-4f52db0059b7",
 		"name": "online-store",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "28326356"
+		"_exporter_id": "28326356",
+		"_collection_link": "https://www.postman.com/restless-spaceship-816010/workspace/online-store/collection/28326356-50dfe817-6c67-4965-bb79-4f52db0059b7?action=share&source=collection_link&creator=28326356"
 	},
 	"item": [
 		{
@@ -12,11 +13,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Products?Category=electro",
+					"raw": "{{HOST_URL}}/Products?Category=electro",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Products"
 					],
@@ -36,11 +36,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Products/Categories",
+					"raw": "{{HOST_URL}}/Products/Categories",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Products",
 						"Categories"
@@ -55,11 +54,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Products",
+					"raw": "{{HOST_URL}}/Products",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Products"
 					]
@@ -82,11 +80,10 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Products",
+					"raw": "{{HOST_URL}}/Products",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Products"
 					]
@@ -100,11 +97,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Cart/Items",
+					"raw": "{{HOST_URL}}/Cart/Items",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Cart",
 						"Items"
@@ -128,11 +124,10 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Cart/Items",
+					"raw": "{{HOST_URL}}/Cart/Items",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Cart",
 						"Items"
@@ -156,11 +151,10 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Cart/Items",
+					"raw": "{{HOST_URL}}/Cart/Items",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Cart",
 						"Items"
@@ -175,11 +169,10 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Cart/Checkout",
+					"raw": "{{HOST_URL}}/Cart/Checkout",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Cart",
 						"Checkout"
@@ -194,11 +187,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Invoices",
+					"raw": "{{HOST_URL}}/Invoices",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Invoices"
 					]
@@ -212,11 +204,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Payments",
+					"raw": "{{HOST_URL}}/Payments",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Payments"
 					]
@@ -239,11 +230,10 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Payments",
+					"raw": "{{HOST_URL}}/Payments",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Payments"
 					]
@@ -269,11 +259,10 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Customers/SignUp",
+					"raw": "{{HOST_URL}}/Customers/SignUp",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Customers",
 						"SignUp"
@@ -322,11 +311,10 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST_URL}}:{{HOST_PORT}}/Customers/SignIn",
+					"raw": "{{HOST_URL}}/Customers/SignIn",
 					"host": [
 						"{{HOST_URL}}"
 					],
-					"port": "{{HOST_PORT}}",
 					"path": [
 						"Customers",
 						"SignIn"
@@ -371,13 +359,14 @@
 	"variable": [
 		{
 			"key": "HOST_URL",
-			"value": "http://localhost",
+			"value": "https://online-store-private-production.up.railway.app",
 			"type": "string"
 		},
 		{
 			"key": "HOST_PORT",
 			"value": "8081",
-			"type": "string"
+			"type": "string",
+			"disabled": true
 		},
 		{
 			"key": "AUTH_TOKEN",
