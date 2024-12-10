@@ -30,7 +30,7 @@ func main() {
     m, err := migrate.New("file://./database/migrations", "postgres://postgres:ad681789@localhost:5432/onlinestore?sslmode=disable")
     if err != nil {
         fmt.Println("Error creating migration instance: ", err)
-    }
+    } 
 
     // Menjalankan migrasi
     if err := m.Up(); err != nil {

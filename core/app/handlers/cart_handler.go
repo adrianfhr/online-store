@@ -73,7 +73,9 @@ func (h *CartHandler) GetCartWithProducts(c *gin.Context) {
 
 // AddToCart adds a product to the cart
 func (h *CartHandler) AddToCart(c *gin.Context) {
+
 	var addToCartDTO dto.AddToCartDTO
+	
 	if err := c.ShouldBindJSON(&addToCartDTO); err != nil {
 		fmt.Println("Error binding JSON: ", err)
 		response.RespondError(c, http.StatusBadRequest, "Invalid request", nil)
