@@ -1,31 +1,32 @@
-# Use the official Golang image as the base image
-FROM golang:1.22 AS builder
+# Step 1: Use an official Golang image for building
+FROM golang:1.20 as builder
 
-# Set the working directory inside the container
+# Set the Current Working Directory inside the container
 WORKDIR /app
 
 # Copy go.mod and go.sum files
 COPY go.mod go.sum ./
 
-# Download dependencies
+# Download all dependencies
 RUN go mod download
 
-# Copy the entire application to the container
+# Copy the source code into the container
 COPY . .
 
-# Build the application
-RUN CGO_ENABLED=0 GOOS=linux go build -o myapp ./main.go
+# Build the Go app
+RUN go build -o main .
 
-# Start a new stage from scratch
-FROM alpine:latest
+# Step 2: Use a minimal image for the final container
+FROM gcr.io/distroless/base-debian12
 
-# Set the working directory
-WORKDIR /root/
+# Set the Current Working Directory inside the container
+WORKDIR /
 
-# Copy the pre-built binary file from the previous stage
-COPY --from=builder /app/myapp .
+# Copy the pre-built binary file from the builder stage
+COPY --from=builder /app/main .
 
-# Expose the port the app runs on
+# Expose port 8080 for Cloud Run
 EXPOSE 8080
+
 # Command to run the executable
-CMD ["./myapp"]
+CMD ["./main"]
